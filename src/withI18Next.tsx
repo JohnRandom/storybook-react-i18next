@@ -4,7 +4,7 @@ import {
     PartialStoryFn as StoryFunction,
     StoryContext,
 } from '@storybook/csf';
-import {useEffect, useGlobals, useRef, useState} from '@storybook/client-api';
+import {useEffect, useRef, useState} from '@storybook/client-api';
 import {I18nextProvider} from 'react-i18next';
 
 export const withI18Next = (
@@ -12,12 +12,15 @@ export const withI18Next = (
     context: StoryContext
 ) => {
     const {
-        parameters: {i18n},
+        parameters: {i18n, locale},
     } = context;
 
-    const [{locale}] = useGlobals();
+    // const {locale} = context.globalsArgs;
     const [show, setShow] = useState(true);
     const timeoutRef = useRef(null);
+
+    console.log('context.globalsArgs', context.globalsArgs);
+    console.log('locale', locale);
 
     useEffect(() => {
         if (locale) {
